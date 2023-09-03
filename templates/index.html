@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+</head>
+
+<body style="background-color: #b1c5dd;">
+  <div style="margin-top: 50px;" class="ui container">
+  <h1 class="ui center aligned header">Todo App</h1>
+
+  <form class="ui form" action="/add" method="post">
+    <div class="field">
+      <label style="font-size: 18px;" for="title">Enter your task</label>
+      <input style="margin-bottom: 10px;" type="text" name="title" placeholder="Type here...">
+    
+      <button style="display: block;  margin: 0 auto;" 
+        class="ui purple button" type="submit">Insert</button>
+    </div>
+  </form>
+
+    {% for todo in todo_list %}
+  <div class="ui segment">
+    <p class="ui big header"> {{ todo.id }}- {{ todo.title }} </p>
+
+    {% if todo.complete == False %}
+      <span calss="ui grey label">Not Complete</span>
+    {% else %}
+      <span class="ui green label">Completed</span>
+  </div>
+    {% endif %}
+    <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
+    <a class="ui orange button" href="/delete/{{ todo.id }}">Remove</a>
+    {% endfor %}
+</div>
+  <div style="margin:50px"
+      class="ui container">
+    <p style="margin-top:50px; font-size: 18px;"
+        class="ui center aligned header">My Tasks</p>
+    <table class="ui inverted segment celled table">
+      <thead>
+        <tr>
+          <th style="font-size: 18px;">
+            Task
+          </th>
+          <th style="font-size: 18px;">
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in todo_list %}
+        <tr>
+          <td style="font-size: 18px;">
+            {{ todo.id }}- {{ todo.title }} 
+          </td>
+          <td>
+            {% if todo.complete == False %}
+            <span class="ui red label">Not Completed</span>
+            {% else %}
+            <span class="ui green label">Completed</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
